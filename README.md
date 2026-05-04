@@ -73,3 +73,28 @@ The email is delivered to:
 - Spam/Junk  
 - Quarantine  
 - Or rejected
+
+---
+## 📂 Repository Structure
+
+- diagrams/ → Contains SMTP flow diagram  
+- docs/ → Detailed troubleshooting guide  
+- scripts/ → Automation scripts for testing SMTP  
+
+---
+
+## 📊 Diagram
+
+![SMTP Flow](./diagrams/smtp-flow.png)
+
+---
+
+## 📘 Detailed Guide
+See full troubleshooting guide here:  
+➡️ [SMTP Troubleshooting Guide](./docs/troubleshooting-guide.md)
+
+---
+
+## ⚙️ Script
+Basic SMTP test script:  
+➡️ [smtp-test.ps1](./scripts/smtp-test.ps1)
