@@ -24,15 +24,52 @@ The distribution list may include:
 
 ## ✅ Successful Email Flow
 
-```text
-Application / System
-        ↓
-Email Triggered
-        ↓
-SMTP Server
-        ↓
-DNS / MX Record Lookup
-        ↓
-Recipient Mail Server
-        ↓
-Recipient Inbox
+    [Application / System]
+              ↓
+       Email Triggered
+              ↓
+         [SMTP Server]
+              ↓
+      DNS / MX Lookup
+              ↓
+    [Recipient Mail Server]
+              ↓
+    [Inbox / Spam / Quarantine]
+
+---
+
+## 🔍 Step-by-Step Flow
+
+### 1. Email is triggered
+The application generates an email based on an event such as an alert, notification, or user action.
+
+### 2. Application sends request to SMTP server
+The application connects to the SMTP server using configured settings:
+- SMTP server address  
+- Port  
+- Authentication credentials  
+
+### 3. SMTP server validates the request
+The SMTP server checks:
+- Sender authentication  
+- Relay permissions  
+- Sender address validity  
+
+### 4. DNS / MX lookup happens
+The SMTP server performs a DNS lookup to find the recipient domain’s mail server.
+
+### 5. Email is routed to recipient mail server
+The email is sent to the recipient’s mail server.
+
+### 6. Recipient server processes the email
+The recipient server checks:
+- Spam filters  
+- Security policies  
+- Sender reputation  
+
+### 7. Email is delivered
+The email is delivered to:
+- Inbox  
+- Spam/Junk  
+- Quarantine  
+- Or rejected
