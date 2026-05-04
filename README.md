@@ -1,24 +1,35 @@
-# SMTP Email Flow Explained
+# SMTP Email Flow & Troubleshooting Guide
+
+This project demonstrates end-to-end SMTP email flow along with structured troubleshooting methods used in real-world technical support scenarios.
+
+---
 
 ## 📌 Project Overview
-This project explains how an email is triggered, routed, delivered, and what common issues can occur during the SMTP email flow.
 
-It is designed as a technical support documentation project to demonstrate troubleshooting, documentation, and root cause analysis skills.
+This repository explains how emails are sent using SMTP and how to diagnose issues when email delivery fails.
+
+It covers:
+- Email delivery flow
+- Failure points
+- Troubleshooting methodology
+- Automation using PowerShell scripts
 
 ---
 
 ## 📧 What is SMTP?
-SMTP stands for Simple Mail Transfer Protocol. It is used to send emails from an application, system, or mail client to the recipient’s mail server.
+
+SMTP (Simple Mail Transfer Protocol) is used to send emails from an application or client to a mail server and then to the recipient’s mail server.
 
 ---
 
 ## 🏢 Example Scenario
-A system sends an email notification to a distribution list.
 
-The distribution list may include:
-- Internal company email addresses
-- Customer-created distribution lists
-- External customer email addresses
+A system sends email notifications to:
+- Internal users
+- External users
+- Distribution lists
+
+Issues may occur at different stages such as application, SMTP server, network, DNS, or recipient side.
 
 ---
 
@@ -41,60 +52,148 @@ The distribution list may include:
 ## 🔍 Step-by-Step Flow
 
 ### 1. Email is triggered
-The application generates an email based on an event such as an alert, notification, or user action.
+The application generates an email based on an event such as an alert or user action.
 
 ### 2. Application sends request to SMTP server
-The application connects to the SMTP server using configured settings:
-- SMTP server address  
-- Port  
-- Authentication credentials  
+The application connects using SMTP server address, port, and credentials.
 
 ### 3. SMTP server validates the request
-The SMTP server checks:
-- Sender authentication  
-- Relay permissions  
-- Sender address validity  
+The server checks authentication, sender permissions, and relay access.
 
 ### 4. DNS / MX lookup happens
-The SMTP server performs a DNS lookup to find the recipient domain’s mail server.
+The server finds the recipient domain’s mail server using DNS.
 
 ### 5. Email is routed to recipient mail server
-The email is sent to the recipient’s mail server.
+The message is sent to the destination mail server.
 
 ### 6. Recipient server processes the email
-The recipient server checks:
-- Spam filters  
-- Security policies  
-- Sender reputation  
+The server applies spam filters and security checks.
 
 ### 7. Email is delivered
-The email is delivered to:
-- Inbox  
-- Spam/Junk  
-- Quarantine  
-- Or rejected
+The email is delivered to inbox, spam, quarantine, or rejected.
 
 ---
+
+## ❌ Common Failure Scenarios
+
+| Issue | Possible Cause | What to Check |
+|------|--------------|--------------|
+| Email not triggered | Application issue | Application logs |
+| SMTP authentication failed | Wrong credentials | SMTP settings |
+| Relay denied | Sender not allowed | SMTP relay rules |
+| Email bounced | Invalid recipient | Email address |
+| Email delayed | Queue issue | SMTP queue |
+| Email in spam | Missing SPF/DKIM/DMARC | DNS records |
+| External users not receiving | Firewall/mail rules | Network settings |
+
+---
+
+## 🛠 Troubleshooting Approach
+
+Always troubleshoot in this order:
+
+Application → SMTP Server → Network → DNS → Recipient
+
+---
+
 ## 📂 Repository Structure
 
-- diagrams/ → Contains SMTP flow diagram  
+- diagrams/ → SMTP flow diagram  
 - docs/ → Detailed troubleshooting guide  
-- scripts/ → Automation scripts for testing SMTP  
+- scripts/ → PowerShell troubleshooting scripts  
 
 ---
 
-## 📊 Diagram
+## 📊 SMTP Flow Diagram
 
 ![SMTP Flow](./diagrams/smtp-flow.png)
 
 ---
 
-## 📘 Detailed Guide
-See full troubleshooting guide here:  
+## 📘 Detailed Troubleshooting Guide
+
+Refer to the full guide here:  
 ➡️ [SMTP Troubleshooting Guide](./docs/troubleshooting-guide.md)
 
 ---
 
-## ⚙️ Script
-Basic SMTP test script:  
-➡️ [smtp-test.ps1](./scripts/smtp-test.ps1)
+## ⚙️ Troubleshooting Scripts
+
+This repository includes PowerShell scripts to identify issues across different layers:
+
+### 🔹 Sender Side Check
+➡️ [test-sender-side.ps1](./scripts/test-sender-side.ps1)  
+Checks:
+- Internet connectivity  
+- IP configuration  
+- DNS settings  
+- Firewall status  
+
+---
+
+### 🔹 SMTP Server Check
+➡️ [test-smtp-server.ps1](./scripts/test-smtp-server.ps1)  
+Checks:
+- SMTP server DNS resolution  
+- Port connectivity (25, 465, 587)  
+
+---
+
+### 🔹 Domain / DNS Check
+➡️ [test-domain-mx-records.ps1](./scripts/test-domain-mx-records.ps1)  
+Checks:
+- MX records  
+- SPF records  
+- DMARC configuration  
+
+---
+
+### 🔹 Recipient Side Check
+➡️ [test-recipient-side.ps1](./scripts/test-recipient-side.ps1)  
+Checks:
+- Recipient domain  
+- DNS records  
+- Basic validation steps  
+
+---
+
+### 🔹 Full Email Flow Check
+➡️ [test-full-email-flow.ps1](./scripts/test-full-email-flow.ps1)  
+Runs all checks:
+- Sender  
+- SMTP server  
+- Domain  
+- Recipient  
+
+---
+
+## ▶️ How to Run Scripts
+
+1. Open PowerShell  
+2. Navigate to scripts folder:
+
+   cd scripts
+
+3. Run a script:
+
+   .\test-full-email-flow.ps1
+
+---
+
+## 📚 Key Learnings
+
+- Email issues can occur at multiple layers  
+- Logs are critical for troubleshooting  
+- Network and firewall issues are common  
+- DNS plays a major role in email delivery  
+
+---
+
+## 🎯 Skills Demonstrated
+
+- Technical troubleshooting  
+- Root cause analysis  
+- SMTP and email systems understanding  
+- DNS and network diagnostics  
+- PowerShell scripting  
+- Documentation skills  
