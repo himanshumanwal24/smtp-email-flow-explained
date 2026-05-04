@@ -1,44 +1,48 @@
 # SMTP Troubleshooting Guide
 
 ## 📌 Purpose
-This document provides a structured approach to troubleshooting email delivery issues using SMTP.
+This guide provides a structured approach to diagnosing and resolving email delivery issues using SMTP.
 
 ---
 
-## 🔍 Troubleshooting Approach
+## 🔍 Troubleshooting Methodology
 
-### Step 1: Verify Email Trigger
-- Check if the application triggered the email
-- Review application logs
+Always troubleshoot in this order:
+Application → SMTP Server → Network → DNS → Recipient
 
-### Step 2: Validate SMTP Configuration
+---
+
+## 🧩 Step-by-Step Troubleshooting
+
+### 1. Verify Email Trigger (Application Layer)
+- Confirm the email event was triggered
+- Check application logs for errors
+- Validate sender email configuration
+
+---
+
+### 2. Validate SMTP Configuration
+Check the following:
 - SMTP server address
 - Port (25, 465, 587)
 - Authentication credentials
+- Encryption (TLS/SSL if required)
 
 ---
 
-## 🛠 Layer-wise Troubleshooting
+### 3. Check SMTP Server Status
+- Ensure SMTP service is running
+- Review SMTP logs
+- Check for authentication failures
+- Verify relay permissions
 
-### Application Layer
-- Email trigger event
-- Error logs
-- Sender configuration
+---
 
-### SMTP Layer
-- SMTP server reachable
-- Authentication success/failure
-- Relay permissions
-
-### Network Layer
-- Firewall rules
-- Port accessibility
-- DNS resolution
-
-### DNS Layer
-- Check MX records
-- Validate domain routing
+### 4. Test Network Connectivity
+- Confirm SMTP port is reachable
+- Check firewall rules
+- Verify outbound traffic is allowed
 
 Command:
-```bash
-nslookup -type=mx domain.com
+```powershell
+Test-NetConnection smtp.domain.com -Port 587
